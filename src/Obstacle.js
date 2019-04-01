@@ -17,8 +17,6 @@ const Obstacle = (props) => {
         gridRowEnd: startingPositionX + props.obstacle.height
     };
 
-    console.log(style);
-
     return(
         <div className={className} style={style}>
 

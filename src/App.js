@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './App.css';
 import './Grid';
 import Grid from "./Grid";
 import Obstacle from "./Obstacle";
@@ -15,7 +14,8 @@ class App extends Component {
             obstacles: this.getObstacles(),
             height: 5,
             width: 5,
-            blockableSquares: (this.height - 2) * (this.width - 2)
+            blockableSquares: (this.height - 2) * (this.width - 2),
+            grid: []
         }
     }
 
@@ -32,11 +32,14 @@ class App extends Component {
     render() {
         const {obstacles} = this.state;
 
-        console.log(this.getObstaclesBySize());
-
         return (
             <div className="App">
-                <Grid obstacles={obstacles} className={'dungeon-grid'}/>
+                <div className={'controls-wrapper'}>
+                    <Controls/>
+                </div>
+                <div className={'dungeon-grid-wrapper'}>
+                    <Grid obstacles={obstacles} className={'dungeon-grid'}/>
+                </div>
             </div>
         );
     }

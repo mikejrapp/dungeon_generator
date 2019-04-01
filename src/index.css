@@ -1,9 +1,25 @@
 
 :root{
-    --rowNum: 10;
-    --colNum: 10;
+    --rowNum: 8;
+    --colNum: 8;
     --gridHeight: 80vh;
     --gridWidth: 55vw;
+}
+
+html{
+    margin: 0;
+    padding: 0;
+}
+
+.App{
+    position: relative;
+}
+
+.dungeon-grid-wrapper{
+    position: absolute;
+    display: inline-block;
+
+    left: 30vw;
 }
 
 .dungeon-grid{
@@ -11,12 +27,17 @@
 
     border: 1px solid gray;
 
-    height: var(--gridHeight);
-    width: var(--gridWidth);
+    height: 80vh;
+    width: 55vw;
 
     grid-template-rows: repeat(var(--rowNum), auto);
     grid-template-columns: repeat(var(--colNum), auto);
     grid-gap: 1px;
+}
+
+.controls-wrapper{
+    position: absolute;
+    display: inline-block;
 }
 
 .controls{
