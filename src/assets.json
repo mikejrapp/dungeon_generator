@@ -1,0 +1,33 @@
+{
+    "obstacles": [
+        {
+            "name": "tableLarge",
+            "className": "table-large",
+            "spacesBlocked": 8,
+            "height": 2,
+            "width": 4,
+            "color": "#997a66",
+            "image": ""
+        },
+
+        {
+            "name": "tableMedium",
+            "className": "table-medium",
+            "spacesBlocked": 6,
+            "height": 2,
+            "width": 3,
+            "color": "#997a66",
+            "image": ""
+        },
+
+        {
+            "name": "tableSmall",
+            "className": "table-small",
+            "spacesBlocked": 4,
+            "height": 2,
+            "width": 2,
+            "color": "#997a66",
+            "image": ""
+        }
+    ]
+}
