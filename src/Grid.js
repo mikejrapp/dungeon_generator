@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 const Grid = (props) =>{
     return(
-        <div className={"grid"}>
+        <div className={props.className}>
             {props.obstacles}
         </div>
     )

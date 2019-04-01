@@ -7,7 +7,7 @@
             "height": 2,
             "width": 4,
             "color": "#997a66",
-            "image": ""
+            "image": "textures/table-texture.jpg"
         },
 
         {
@@ -17,7 +17,7 @@
             "height": 2,
             "width": 3,
             "color": "#997a66",
-            "image": ""
+            "image": "textures/table-texture.jpg"
         },
 
         {
@@ -27,7 +27,7 @@
             "height": 2,
             "width": 2,
             "color": "#997a66",
-            "image": ""
+            "image": "textures/table-texture.jpg"
         }
     ]
 }

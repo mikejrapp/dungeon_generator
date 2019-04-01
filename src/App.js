@@ -3,6 +3,7 @@ import './App.css';
 import './Grid';
 import Grid from "./Grid";
 import Obstacle from "./Obstacle";
+import Controls from "./Controls";
 import assets from './assets';
 
 class App extends Component {
@@ -35,7 +36,7 @@ class App extends Component {
 
         return (
             <div className="App">
-                <Grid obstacles={obstacles}/>
+                <Grid obstacles={obstacles} className={'dungeon-grid'}/>
             </div>
         );
     }

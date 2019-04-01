@@ -1,12 +1,12 @@
 
 :root{
-    --rowNum: 5;
-    --colNum: 5;
+    --rowNum: 10;
+    --colNum: 10;
     --gridHeight: 80vh;
     --gridWidth: 55vw;
 }
 
-.grid{
+.dungeon-grid{
     display: grid;
 
     border: 1px solid gray;
@@ -17,6 +17,16 @@
     grid-template-rows: repeat(var(--rowNum), auto);
     grid-template-columns: repeat(var(--colNum), auto);
     grid-gap: 1px;
+}
+
+.controls{
+    border: 1px solid gray;
+    display: inline-block;
+
+    height: 80vh;
+    width: 25vw;
+
+    background-color: lightblue;
 }
 
 .table-large{
