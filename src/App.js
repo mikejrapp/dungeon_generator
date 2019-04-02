@@ -4,6 +4,7 @@ import Grid from "./Grid";
 import Obstacle from "./Obstacle";
 import Controls from "./Controls";
 import assets from './assets';
+import {getStyle} from './functions';
 
 class App extends Component {
 
@@ -21,7 +22,9 @@ class App extends Component {
 
     getObstacles() {
         return assets.obstacles.map( (object, i) => {
-            return <Obstacle obstacle={object} key={i}/>;
+            const style = getStyle(object);
+
+            return <Obstacle obstacle={object} style={style} key={i}/>;
         });
     }
 
