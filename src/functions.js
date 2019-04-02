@@ -27,3 +27,7 @@ export const getStyle = (obstacle) => {
         gridRowEnd: startingPositionX + height
     }
 };
+
+export const getTileTotal = () => {
+    return getGridColumnNumber() * getGridRowNumber();
+};

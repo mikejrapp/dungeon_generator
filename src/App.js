@@ -4,7 +4,7 @@ import Grid from "./Grid";
 import Obstacle from "./Obstacle";
 import Controls from "./Controls";
 import assets from './assets';
-import {getStyle} from './functions';
+import {getStyle, getTileTotal} from './functions';
 
 class App extends Component {
 
@@ -13,6 +13,7 @@ class App extends Component {
 
         this.state = {
             obstacles: this.getObstacles(),
+            tiles: [],
             height: 5,
             width: 5,
             blockableSquares: (this.height - 2) * (this.width - 2),
@@ -22,9 +23,7 @@ class App extends Component {
 
     getObstacles() {
         return assets.obstacles.map( (object, i) => {
-            const style = getStyle(object);
-
-            return <Obstacle obstacle={object} style={style} key={i}/>;
+            return <Obstacle obstacle={object} style={getStyle(object)} key={i}/>;
         });
     }
 
@@ -33,15 +32,13 @@ class App extends Component {
     }
 
     render() {
-        const {obstacles} = this.state;
-
         return (
             <div className="App">
                 <div className={'controls-wrapper'}>
                     <Controls/>
                 </div>
                 <div className={'dungeon-grid-wrapper'}>
-                    <Grid obstacles={obstacles} className={'dungeon-grid'}/>
+                    <Grid obstacles={this.getObstacles()} className={'dungeon-grid'}/>
                 </div>
             </div>
         );

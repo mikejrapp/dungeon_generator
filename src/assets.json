@@ -29,5 +29,13 @@
             "color": "#997a66",
             "image": "textures/table-texture.jpg"
         }
+    ],
+    "tiles": [
+        {
+            "name": "stone",
+            "className": "stone",
+            "color": "gray",
+            "image": "test"
+        }
     ]
 }
