@@ -45,7 +45,7 @@ html{
 
     grid-template-rows: repeat(var(--rowNum), auto);
     grid-template-columns: repeat(var(--colNum), auto);
-    grid-gap: 1px;
+    grid-gap: 3px;
 }
 
 .controls-wrapper{

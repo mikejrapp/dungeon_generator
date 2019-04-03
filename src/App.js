@@ -3,8 +3,9 @@ import './Grid';
 import Grid from "./Grid";
 import Obstacle from "./Obstacle";
 import Controls from "./Controls";
+import Tile from "./Tile";
 import assets from './assets';
-import {getStyle, getTileTotal} from './functions';
+import {getObstacleStyle, getGridColumnNumber, getGridRowNumber, getTileTotal, getTileStyle} from './functions';
 
 class App extends Component {
 
@@ -13,9 +14,9 @@ class App extends Component {
 
         this.state = {
             obstacles: this.getObstacles(),
-            tiles: [],
-            height: 5,
-            width: 5,
+            tiles: this.getTiles('stone'),
+            height: getGridRowNumber(),
+            width: getGridColumnNumber(),
             blockableSquares: (this.height - 2) * (this.width - 2),
             grid: []
         }
@@ -23,8 +24,19 @@ class App extends Component {
 
     getObstacles() {
         return assets.obstacles.map( (object, i) => {
-            return <Obstacle obstacle={object} style={getStyle(object)} key={i}/>;
+            return <Obstacle obstacle={object} style={getObstacleStyle(object)} key={i}/>;
         });
+    }
+
+    getTiles(tileType) {
+        let tiles = [];
+        const style = getTileStyle(tileType);
+
+        for(let i = 0; i < getTileTotal(); i++){
+            tiles.push(<Tile className={tileType} style={style} key={i}/>)
+        }
+
+        return tiles;
     }
 
     getObstaclesBySize() {
@@ -38,7 +50,7 @@ class App extends Component {
                     <Controls/>
                 </div>
                 <div className={'dungeon-grid-wrapper'}>
-                    <Grid obstacles={this.getObstacles()} className={'dungeon-grid'}/>
+                    <Grid obstacles={this.getObstacles()} tiles={this.getTiles('stone')} className={'dungeon-grid'}/>
                 </div>
             </div>
         );

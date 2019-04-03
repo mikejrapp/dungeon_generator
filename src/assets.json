@@ -35,7 +35,7 @@
             "name": "stone",
             "className": "stone",
             "color": "gray",
-            "image": "test"
+            "image": "textures/stone.jpg"
         }
     ]
 }
