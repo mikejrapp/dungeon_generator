@@ -69,19 +69,38 @@ const noCollision = (currentRow, currentColumn, grid) => {
     return grid[currentRow][currentColumn] === ' ';
 };
 
-const findRowWithSpace = (row, grid, obstacle, buffer) => {
+const findRowWithSpace = (row, grid, obstacle, buffer = 0) => {
     const emptyTiles = getEmptyTiles(grid[row]);
 
-    return emptyTiles.length >= (obstacle.grid[0].length + buffer * 2) ? row : findRowWithSpace(row + 1, grid, obstacle, buffer);
+    return checkSpace(emptyTiles, obstacle, buffer) ? row : findRowWithSpace(row + 1, grid, obstacle, buffer);
+};
+
+const getObstacleLocations = (grid, row = 0) => {
+    return grid.map( (tile, i) => findBlockedTiles(i, grid)).filter( (tile, i) => i >= row);
+};
+
+const checkSpace = (emptyTiles, obstacle, buffer = 0) => {
+    return emptyTiles.length >= (obstacle.grid[0].length + buffer * 2);
 };
 
 const getEmptyTiles = (row) => {
     return row.filter( tile => tile !== 'x');
 };
 
+const findBlockedTiles = (row, grid) => {
+    if(grid[row].includes('x')){
+        return Array.from(grid[row].entries()).filter( tile => tile[1] === 'x').map( tile => tile[0]);
+    }
+
+    return [];
+};
+
+const validatePlacement = (insertPoint, grid, obstacle) => {
+    
+};
 
 const grid = getGrid(10, 10, ' ');
 const updatedGrid = insertObstacle( [0,0], grid, table);
 const newGrid = insertObstacle([0,4], updatedGrid, chest);
 
-console.log(findRowWithSpace(1, updatedGrid, table, 3));
+console.log(getObstacleLocations(updatedGrid, 2));
