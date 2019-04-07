@@ -3,9 +3,10 @@ import './Grid';
 import Grid from "./Grid";
 import Obstacle from "./Obstacle";
 import Controls from "./Controls";
-import Tile from "./Tile";
+import TileRow from "./TileRow";
 import assets from './assets';
-import {getObstacleStyle, getGridColumnNumber, getGridRowNumber, getTileTotal, getTileStyle} from './functions';
+import * as functions from './functions';
+//import * as grid from './GridFunctions';
 
 class App extends Component {
 
@@ -15,8 +16,8 @@ class App extends Component {
         this.state = {
             obstacles: this.getObstacles(),
             tiles: this.getTiles('stone'),
-            height: getGridRowNumber(),
-            width: getGridColumnNumber(),
+            height: functions.getGridRowNumber(),
+            width: functions.getGridColumnNumber(),
             blockableSquares: (this.height - 2) * (this.width - 2),
             grid: []
         }
@@ -24,19 +25,24 @@ class App extends Component {
 
     getObstacles() {
         return assets.obstacles.map( (object, i) => {
-            return <Obstacle obstacle={object} style={getObstacleStyle(object)} key={i}/>;
+            return <Obstacle obstacle={object} style={functions.getObstacleStyle(object)} key={i}/>;
         });
     }
 
     getTiles(tileType) {
+        let tileRows = [];
         let tiles = [];
-        const style = getTileStyle(tileType);
+        const style = functions.getTileStyle(tileType);
 
-        for(let i = 0; i < getTileTotal(); i++){
-            tiles.push(<Tile className={tileType} style={style} key={i}/>)
+        for(let i = 0; i < functions.getGridRowNumber(); i++){
+            for(let j = 0; j < functions.getGridColumnNumber(); j++){
+                tiles.push("");
+            }
+            tileRows.push(<TileRow tiles={tiles} className={tileType} style={style} key={i}/>);
+            tiles = [];
         }
 
-        return tiles;
+        return tileRows;
     }
 
     getObstaclesBySize() {

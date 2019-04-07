@@ -2,10 +2,9 @@ import React from 'react';
 
 const Grid = (props) =>{
     return(
-        <div className={props.className}>
+        <table className={props.className}>
             {props.tiles}
-            {props.obstacles}
-        </div>
+        </table>
     )
 };
 

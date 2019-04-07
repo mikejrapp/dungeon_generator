@@ -1,9 +1,9 @@
 
 :root{
-    --rowNum: 8;
-    --colNum: 8;
-    --gridHeight: 80vh;
-    --gridWidth: 55vw;
+    --rowNum: 10;
+    --colNum: 10;
+    --gridHeight: 90vh;
+    --gridWidth: 45vw;
 }
 
 html{
@@ -36,12 +36,10 @@ html{
 }
 
 .dungeon-grid{
-    display: grid;
-
     border: 1px solid gray;
 
-    height: 80vh;
-    width: 55vw;
+    height: var(--gridHeight);
+    width: var(--gridWidth);
 
     grid-template-rows: repeat(var(--rowNum), auto);
     grid-template-columns: repeat(var(--colNum), auto);
