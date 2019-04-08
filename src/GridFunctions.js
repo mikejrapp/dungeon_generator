@@ -31,12 +31,16 @@ const getGrid = (rowNumbers, columnNumbers) => {
 };
 
 const insertObstacle = (insertPosition, grid, obstacle) => {
-    return grid.map( (row, i) => {
-        row = row.map((tile, j) => {
-            return getObstacle([i,j], insertPosition, grid, obstacle);
+    if(isInsertValid(insertPosition, grid, obstacle)){
+        return grid.map( (row, i) => {
+            row = row.map((tile, j) => {
+                return getObstacle([i,j], insertPosition, grid, obstacle);
+            });
+            return row
         });
-        return row
-    });
+    }
+
+    return false;
 };
 
 const getObstacle = (tile = [0, 0], insertPosition = [0, 0], grid, obstacle) => {
@@ -49,7 +53,7 @@ const getObstacle = (tile = [0, 0], insertPosition = [0, 0], grid, obstacle) => 
     const currentRow = tile[0];
     const currentColumn = tile[1];
 
-    if(isPlaceable(tile, insertPosition, endPoints, grid)){
+    if(isPlaceable(tile, insertPosition, endPoints, grid, obstacle)){
         return 'x';
     }
     else return grid[currentRow][currentColumn];
@@ -59,14 +63,10 @@ const withinObstacleBoundries = (gridPosition, insertPoint, endPoint) => {
     return gridPosition >= insertPoint && gridPosition < endPoint;
 };
 
-const isPlaceable = (section, insertPoints, endPoints, grid) => {
+const isPlaceable = (section, insertPoints, endPoints, grid, obstacle) => {
     return withinObstacleBoundries(section[0], insertPoints[0], endPoints[0])
         && withinObstacleBoundries(section[1], insertPoints[1], endPoints[1])
-        && noCollision(section[0], section[1], grid);
-};
-
-const noCollision = (currentRow, currentColumn, grid) => {
-    return grid[currentRow][currentColumn] === ' ';
+        && isInsertValid(insertPoints, grid, obstacle);
 };
 
 const findRowWithSpace = (row, grid, obstacle, buffer = 0) => {
@@ -95,12 +95,83 @@ const findBlockedTiles = (row, grid) => {
     return [];
 };
 
-const validatePlacement = (insertPoint, grid, obstacle) => {
-    
+const isInsertValid = (insertPoint, grid, obstacle) => {
+    const insertRow = insertPoint[0];
+    const obstalceLocations = getObstacleLocations(grid);
+    const insertColumn = insertPoint[1];
+    const obstacleEndRow = (obstacle.grid.length - 1) + insertRow;
+
+    if(isWiderThanGrid(insertColumn, grid, obstacle) || isTallerThanGrid(insertRow, grid, obstacle)){
+        console.warn('out of bounds');
+        return false;
+    }
+
+    for(let i = 0; i < obstacle.grid.length; i++){
+        //check the rows and if the first insert column is filled, return false.
+        if(obstalceLocations[insertRow + i].includes(insertColumn)){
+            console.warn('collision');
+            return false;
+        }
+
+        for(let j = 0; j < obstacle.grid[0].length; j++){
+            //if the first isn't filled, check the rest of the columns on each row.
+            if(obstalceLocations[insertRow + i].includes(insertColumn + j)){
+                console.warn('collision');
+                return false;
+            }
+        }
+    }
+
+    return true;
 };
 
-const grid = getGrid(10, 10, ' ');
-const updatedGrid = insertObstacle( [0,0], grid, table);
-const newGrid = insertObstacle([0,4], updatedGrid, chest);
+const isWiderThanGrid = (insertColumn, grid, obstacle) => {
+    return insertColumn + obstacle.grid[0].length > grid[0].length;
+};
 
-console.log(getObstacleLocations(updatedGrid, 2));
+const isTallerThanGrid = (insertRow, grid, obstacle) => {
+    return insertRow + obstacle.grid.length > grid.length;
+};
+
+const getInsertPoint = (grid, obstacle) => {
+    const insertRow = getRandomInt(0, (grid.length) - (obstacle.grid.length));
+    const insertColumn = getRandomInt(0, (grid[0].length) - (obstacle.grid[0].length));
+
+    return [insertRow, insertColumn];
+};
+
+const getNewRow = (currentRow, grid, obstacle) =>{
+    const newRow = currentRow + getRandomInt(0, 1);
+
+    if(!isTallerThanGrid(newRow, grid, obstacle)){
+        return newRow;
+    }
+
+    return currentRow;
+};
+
+const getNewColumn = (currentColumn, grid, obstacle) => {
+    const newColumn = currentColumn + getRandomInt(0, 1);
+
+    if(!isWiderThanGrid(newColumn, grid, obstacle)){
+        return newColumn;
+    }
+
+    return currentColumn;
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+const grid = getGrid(10, 10, ' ');
+const updatedGrid = insertObstacle( getInsertPoint(grid, table), grid, table);
+const newGrid = insertObstacle(getInsertPoint(updatedGrid, chest), updatedGrid, chest);
+
+if(!newGrid){
+    const testGrid = insertObstacle(getInsertPoint(updatedGrid, chest), updatedGrid, chest);
+    console.log(testGrid);
+}
+else{
+    console.log(newGrid);
+}
