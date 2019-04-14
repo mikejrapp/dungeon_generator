@@ -1,13 +1,11 @@
 import React from 'react';
 
 const TileRow = (props) => {
-    const {tiles, style} = props;
+    const {row} = props;
 
     return(
         <tr>
-            {tiles.map( tile => <td style={style}>
-
-            </td>)}
+            {row.map( (tile, i) => tile === 'x' ? <td className={'blocked'} key={i}> </td> : <td key={i}> </td>)}
         </tr>
     )
 };

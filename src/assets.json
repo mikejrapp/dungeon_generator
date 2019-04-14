@@ -8,7 +8,8 @@
             "width": 4,
             "color": "#997a66",
             "image": "textures/table-texture-2.jpg",
-            "map": [
+            "key": "TL",
+            "grid": [
                 ["x","x","x","x"],
                 ["x","x","x","x"]
             ]
@@ -21,7 +22,12 @@
             "height": 2,
             "width": 3,
             "color": "#997a66",
-            "image": "textures/table-texture.jpg"
+            "image": "textures/table-texture.jpg",
+            "key": "TM",
+            "grid": [
+                ["x", "x", "x"],
+                ["x", "x", "x"]
+            ]
         },
 
         {
@@ -31,7 +37,12 @@
             "height": 2,
             "width": 2,
             "color": "#997a66",
-            "image": "textures/table-texture.jpg"
+            "image": "textures/table-texture.jpg",
+            "key": "TS",
+            "grid": [
+                ["x", "x"],
+                ["x", "x"]
+            ]
         }
     ],
     "tiles": [

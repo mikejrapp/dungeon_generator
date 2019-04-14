@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import './Grid';
 import Grid from "./Grid";
-import Obstacle from "./Obstacle";
 import Controls from "./Controls";
-import TileRow from "./TileRow";
 import assets from './assets';
-import * as functions from './functions';
-//import * as grid from './GridFunctions';
+import {getGrid, populateGrid} from './GridFunctions';
 
 class App extends Component {
 
@@ -14,49 +11,35 @@ class App extends Component {
         super(props);
 
         this.state = {
-            obstacles: this.getObstacles(),
-            tiles: this.getTiles('stone'),
-            height: functions.getGridRowNumber(),
-            width: functions.getGridColumnNumber(),
-            blockableSquares: (this.height - 2) * (this.width - 2),
-            grid: []
+            grid: getGrid(),
         }
     }
 
-    getObstacles() {
-        return assets.obstacles.map( (object, i) => {
-            return <Obstacle obstacle={object} style={functions.getObstacleStyle(object)} key={i}/>;
-        });
-    }
+    updateGrid = () => {
+        const tableLarge = assets.obstacles[0];
+        const tableMedium = assets.obstacles[1];
+        const tableSmall = assets.obstacles[2];
 
-    getTiles(tileType) {
-        let tileRows = [];
-        let tiles = [];
-        const style = functions.getTileStyle(tileType);
+        this.clearGrid().then( () => {
+            const updatedGrid = populateGrid(this.state.grid, [tableLarge, tableMedium, tableSmall]);
+            this.setState({grid: updatedGrid});
+        })
+    };
 
-        for(let i = 0; i < functions.getGridRowNumber(); i++){
-            for(let j = 0; j < functions.getGridColumnNumber(); j++){
-                tiles.push("");
-            }
-            tileRows.push(<TileRow tiles={tiles} className={tileType} style={style} key={i}/>);
-            tiles = [];
-        }
-
-        return tileRows;
-    }
-
-    getObstaclesBySize() {
-        return assets.obstacles.filter( ({spacesBlocked}) => spacesBlocked <= 6);
-    }
+    clearGrid = async () => {
+        this.setState({grid: getGrid()});
+    };
 
     render() {
+        const {grid} = this.state.grid;
+
         return (
             <div className="App">
                 <div className={'controls-wrapper'}>
-                    <Controls/>
+                    <Controls handleGenerate={this.updateGrid} handleClear={this.clearGrid}/>
                 </div>
                 <div className={'dungeon-grid-wrapper'}>
-                    <Grid obstacles={this.getObstacles()} tiles={this.getTiles('stone')} className={'dungeon-grid'}/>
+                    <Grid grid={this.state.grid} className={'dungeon-grid'}/>
                 </div>
             </div>
         );

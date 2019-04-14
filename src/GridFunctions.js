@@ -1,34 +1,25 @@
-const table = {
-    "grid": [
-        Array(3),
-        Array(3),
-        Array(3)
-    ]
-};
-
-const chest = {
-    "grid": [
-        Array(2),
-        Array(2)
-    ]
-};
-
-const getGrid = (rowNumbers, columnNumbers) => {
-    const grid = Array(rowNumbers);
-    const row = Array(columnNumbers);
-    const fillStart = 0;
-    const fillValue = ' ';
-
-    return grid.fill(
-        row.fill(
-            fillValue,
-            fillStart,
-            columnNumbers
-        ),
-        fillStart,
-        rowNumbers
-    );
-};
+// const table = {
+//     "grid": [
+//         Array(3),
+//         Array(3),
+//         Array(3)
+//     ]
+// };
+//
+// const chest = {
+//     "grid": [
+//         Array(2),
+//         Array(2)
+//     ]
+// };
+//
+// const barrel = {
+//     "grid": [
+//         Array(1)
+//     ]
+// };
+//
+// const obstacles = [table, chest, barrel];
 
 const insertObstacle = (insertPosition, grid, obstacle) => {
     if(isInsertValid(insertPosition, grid, obstacle)){
@@ -158,20 +149,50 @@ const getNewColumn = (currentColumn, grid, obstacle) => {
     }
 
     return currentColumn;
-}
+};
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-const grid = getGrid(10, 10, ' ');
-const updatedGrid = insertObstacle( getInsertPoint(grid, table), grid, table);
-const newGrid = insertObstacle(getInsertPoint(updatedGrid, chest), updatedGrid, chest);
+const getGridColumnNumber = () => {
+    const htmlStyles = window.getComputedStyle(document.querySelector("html"));
+    return parseInt(htmlStyles.getPropertyValue("--colNum"));
+};
 
-if(!newGrid){
-    const testGrid = insertObstacle(getInsertPoint(updatedGrid, chest), updatedGrid, chest);
-    console.log(testGrid);
-}
-else{
-    console.log(newGrid);
-}
+const getGridRowNumber = () => {
+    const htmlStyles = window.getComputedStyle(document.querySelector("html"));
+    return parseInt(htmlStyles.getPropertyValue("--rowNum"));
+};
+
+export const getGrid = (rowNumbers, columnNumbers) => {
+    const grid = Array(getGridRowNumber());
+    const row = Array(getGridColumnNumber());
+    const fillStart = 0;
+    const fillValue = ' ';
+
+    return grid.fill(
+        row.fill(
+            fillValue,
+            fillStart,
+            columnNumbers
+        ),
+        fillStart,
+        rowNumbers
+    );
+};
+
+export const populateGrid = (grid, obstacles, startingObstacle = 0) =>{
+    if(startingObstacle >= obstacles.length){
+        return grid;
+    }
+
+    const updatedGrid = insertObstacle(getInsertPoint(grid, obstacles[startingObstacle]), grid, obstacles[startingObstacle]);
+
+    if(updatedGrid){
+        return populateGrid(updatedGrid, obstacles, startingObstacle += 1);
+    }
+    else{
+        return populateGrid(grid, obstacles, startingObstacle);
+    }
+};
