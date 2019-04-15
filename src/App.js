@@ -16,12 +16,12 @@ class App extends Component {
     }
 
     updateGrid = () => {
-        const tableLarge = assets.obstacles[0];
-        const tableMedium = assets.obstacles[1];
-        const tableSmall = assets.obstacles[2];
+        const tableLarge = assets.obstacles.tables.tableLarge;
+        const tableMedium = assets.obstacles.tables.tableMedium;
+        const chestSmall = assets.obstacles.chests.chestLarge;
 
         this.clearGrid().then( () => {
-            const updatedGrid = populateGrid(this.state.grid, [tableLarge, tableMedium, tableSmall]);
+            const updatedGrid = populateGrid(this.state.grid, [tableLarge, tableMedium, chestSmall]);
             this.setState({grid: updatedGrid});
         })
     };

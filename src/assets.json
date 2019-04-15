@@ -1,50 +1,83 @@
 {
-    "obstacles": [
-        {
-            "name": "tableLarge",
-            "className": "table-large",
-            "spacesBlocked": 8,
-            "height": 2,
-            "width": 4,
-            "color": "#997a66",
-            "image": "textures/table-texture-2.jpg",
-            "key": "TL",
-            "grid": [
-                ["x","x","x","x"],
-                ["x","x","x","x"]
-            ]
+    "obstacles": {
+        "tables": {
+            "tableLarge": {
+                "name": "tableLarge",
+                "className": "table-large",
+                "spacesBlocked": 8,
+                "height": 2,
+                "width": 4,
+                "color": "#997a66",
+                "image": "textures/table-texture-2.jpg",
+                "key": "TL",
+                "grid": [
+                    ["x","x","x","x"],
+                    ["x","x","x","x"]
+                ]
+            },
+
+            "tableMedium": {
+                "name": "tableMedium",
+                "className": "table-medium",
+                "spacesBlocked": 6,
+                "height": 2,
+                "width": 3,
+                "color": "#997a66",
+                "image": "textures/table-texture.jpg",
+                "key": "TM",
+                "grid": [
+                    ["x", "x", "x"],
+                    ["x", "x", "x"]
+                ]
+            },
+
+            "tableSmall": {
+                "name": "tableSmall",
+                "className": "table-small",
+                "spacesBlocked": 4,
+                "height": 2,
+                "width": 2,
+                "color": "#997a66",
+                "image": "textures/table-texture.jpg",
+                "key": "TS",
+                "grid": [
+                    ["x", "x"],
+                    ["x", "x"]
+                ]
+            }
         },
 
-        {
-            "name": "tableMedium",
-            "className": "table-medium",
-            "spacesBlocked": 6,
-            "height": 2,
-            "width": 3,
-            "color": "#997a66",
-            "image": "textures/table-texture.jpg",
-            "key": "TM",
-            "grid": [
-                ["x", "x", "x"],
-                ["x", "x", "x"]
-            ]
-        },
+        "chests": {
+            "chestLarge": {
+                "name": "chestLarge",
+                "className": "chest-large",
+                "spacesBlocked": 2,
+                "height": 1,
+                "width": 2,
+                "color": "",
+                "image": "",
+                "key": "CL",
+                "grid": [
+                    ["x", "x"]
+                ]
+            },
 
-        {
-            "name": "tableSmall",
-            "className": "table-small",
-            "spacesBlocked": 4,
-            "height": 2,
-            "width": 2,
-            "color": "#997a66",
-            "image": "textures/table-texture.jpg",
-            "key": "TS",
-            "grid": [
-                ["x", "x"],
-                ["x", "x"]
-            ]
+            "chestSmall": {
+                "name": "chestLarge",
+                "className": "chest-large",
+                "spacesBlocked": 1,
+                "height": 1,
+                "width": 1,
+                "color": "",
+                "image": "",
+                "key": "CS",
+                "grid": [
+                    ["x"]
+                ]
+            }
         }
-    ],
+
+    },
     "tiles": [
         {
             "name": "stone",
