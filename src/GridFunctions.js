@@ -75,7 +75,7 @@ const checkSpace = (emptyTiles, obstacle, buffer = 0) => {
 };
 
 const getEmptyTiles = (row) => {
-    return row.filter( tile => tile !== 'x');
+    return row.filter( tile => tile === ' ');
 };
 
 const findBlockedTiles = (row, grid) => {

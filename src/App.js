@@ -31,8 +31,6 @@ class App extends Component {
     };
 
     render() {
-        const {grid} = this.state.grid;
-
         return (
             <div className="App">
                 <div className={'controls-wrapper'}>
