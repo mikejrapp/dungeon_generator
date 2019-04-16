@@ -1,25 +1,27 @@
-// const table = {
-//     "grid": [
-//         Array(3),
-//         Array(3),
-//         Array(3)
-//     ]
-// };
-//
-// const chest = {
-//     "grid": [
-//         Array(2),
-//         Array(2)
-//     ]
-// };
-//
-// const barrel = {
-//     "grid": [
-//         Array(1)
-//     ]
-// };
-//
-// const obstacles = [table, chest, barrel];
+const table = {
+    "grid": [
+        Array(3),
+        Array(3),
+        Array(3)
+    ],
+    "key": "TL"
+};
+
+const chest = {
+    "grid": [
+        Array(2),
+        Array(2)
+    ],
+    "key": "LG"
+};
+
+const barrel = {
+    "grid": [
+        Array(1)
+    ]
+};
+
+const obstacles = [table, chest, barrel];
 
 const insertObstacle = (insertPosition, grid, obstacle) => {
     if(isInsertValid(insertPosition, grid, obstacle)){
@@ -45,7 +47,7 @@ const getObstacle = (tile = [0, 0], insertPosition = [0, 0], grid, obstacle) => 
     const currentColumn = tile[1];
 
     if(isPlaceable(tile, insertPosition, endPoints, grid, obstacle)){
-        return 'x';
+        return obstacle.key;
     }
     else return grid[currentRow][currentColumn];
 };
@@ -79,8 +81,8 @@ const getEmptyTiles = (row) => {
 };
 
 const findBlockedTiles = (row, grid) => {
-    if(grid[row].includes('x')){
-        return Array.from(grid[row].entries()).filter( tile => tile[1] === 'x').map( tile => tile[0]);
+    if(grid[row].find( element => element !== ' ')){
+        return Array.from(grid[row].entries()).filter( tile => tile[1] !== ' ').map( tile => tile[0]);
     }
 
     return [];

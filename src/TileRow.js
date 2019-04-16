@@ -5,7 +5,7 @@ const TileRow = (props) => {
 
     return(
         <tr>
-            {row.map( (tile, i) => tile === 'x' ? <td className={'blocked'} key={i}> </td> : <td key={i}> </td>)}
+            {row.map( (tile, i) => tile !== ' ' ? <td className={tile} key={i}> </td> : <td className={'tile'} key={i}> </td>)}
         </tr>
     )
 };
